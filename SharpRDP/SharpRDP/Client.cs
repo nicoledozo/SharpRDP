@@ -5,6 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using AxMSTSCLib;
+using Microsoft.Win32;
 using MSTSCLib;
 
 namespace SharpRDP
@@ -13,6 +14,7 @@ namespace SharpRDP
     {
         private Dictionary<string, Code> keycode = new Dictionary<string, Code>();
         // private Dictionary<string, Code> keycode;
+        private Dictionary<string, Code> _keycode;
         private IMsRdpClientNonScriptable keydata;
         private int LogonErrorCode { get; set; }
         private int DisconnectCode { get; set; }
@@ -23,7 +25,6 @@ namespace SharpRDP
         private bool isdrive;
         private bool takeover;
         private bool networkauth;
-        private int port;
 
         private enum LogonErrors : uint
         {
@@ -96,8 +97,6 @@ namespace SharpRDP
         public void CreateRdpConnection(string server, string user, string domain, int port, string password,
             string command, string execw, string runelevated, bool condrive, bool tover, bool nla, Dictionary<String, Code> keycode)
         {
-            
-            PopulateKeyCodes();
             _keycode = keycode;
             runtype = runelevated;
             isdrive = condrive;
@@ -207,7 +206,7 @@ namespace SharpRDP
         private void RdpConnectionOnOnLoginComplete(object sender, EventArgs e)
         {
             var rdpSession = (AxMsRdpClient9NotSafeForScripting)sender;
-            Console.WriteLine("[+] Connected to          :  {0}:{1}", target, port);
+            Console.WriteLine("[+] Connected to          :  {0}", target);
             Thread.Sleep(1000);
             keydata = (IMsRdpClientNonScriptable)rdpSession.GetOcx();
 
@@ -423,6 +422,7 @@ namespace SharpRDP
             foreach (var t in text)
             {
                 var symbol = t.ToString();
+                Console.WriteLine("Sending char {0}", t);
                 keydata.SendKeys(_keycode[symbol].length, ref _keycode[symbol].bools[0], ref _keycode[symbol].ints[0]);
                 Thread.Sleep(10);
             }

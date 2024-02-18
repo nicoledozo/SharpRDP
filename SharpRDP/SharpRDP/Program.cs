@@ -12,7 +12,7 @@ namespace SharpRDP
     {
         const string LayoutArgumentKey = "layout";
         const string AmericanLayoutId = "US";
-        const string JsonFolderPath = "/Json";
+        const string JsonFolderPath = "Json";
 
         static void HowTo()
         {
