@@ -11,7 +11,8 @@ namespace SharpRDP
 {
     public class Client
     {
-        private Dictionary<string, Code> keycode;
+        private Dictionary<string, Code> keycode = new Dictionary<string, Code>();
+        // private Dictionary<string, Code> keycode;
         private IMsRdpClientNonScriptable keydata;
         private int LogonErrorCode { get; set; }
         private int DisconnectCode { get; set; }
@@ -95,6 +96,7 @@ namespace SharpRDP
         public void CreateRdpConnection(string server, string user, string domain, int port, string password,
             string command, string execw, string runelevated, bool condrive, bool tover, bool nla, Dictionary<String, Code> keycode)
         {
+            
             PopulateKeyCodes();
             runtype = runelevated;
             isdrive = condrive;
@@ -504,7 +506,7 @@ namespace SharpRDP
             keycode["M"] = new Code(new[] { false, false, true, true }, new[] { 0x2a, 0x32 });
             keycode["N"] = new Code(new[] { false, false, true, true }, new[] { 0x2a, 0x31 });
             keycode["O"] = new Code(new[] { false, false, true, true }, new[] { 0x2a, 0x18 });
-            keycode["p"] = new Code(new[] { false, false, true, true }, new[] { 0x2a, 0x19 });
+            keycode["P"] = new Code(new[] { false, false, true, true }, new[] { 0x2a, 0x19 });
             keycode["Q"] = new Code(new[] { false, false, true, true }, new[] { 0x2a, 0x10 });
             keycode["R"] = new Code(new[] { false, false, true, true }, new[] { 0x2a, 0x13 });
             keycode["S"] = new Code(new[] { false, false, true, true }, new[] { 0x2a, 0x1f });

@@ -172,26 +172,26 @@ namespace SharpRDP
                     }
                 }
 
-                Layout choosenLayout = null;
+                Layout chosenLayout = null;
 
                 if (arguments.ContainsKey(LayoutArgumentKey))
                 {
                     var layoutId = arguments[LayoutArgumentKey];
 
-                    choosenLayout = registredLayouts
+                    chosenLayout = registredLayouts
                         .FirstOrDefault(layout => layout.Id == layoutId);
                 }
 
-                if (choosenLayout == null)
+                if (chosenLayout == null)
                 {
-                    choosenLayout = registredLayouts.First();
+                    chosenLayout = registredLayouts.First();
                 }
 
                 string[] computerNames = arguments["computername"].Split(',');
                 foreach (string server in computerNames)
                 {
                     rdpconn.CreateRdpConnection(server, username, domain, port, password,
-                        command, execw, execElevated, connectdrive, takeover, nla, choosenLayout.Keycode);
+                        command, execw, execElevated, connectdrive, takeover, nla, chosenLayout.Keycode);
                 }
             }
             else
@@ -317,7 +317,7 @@ namespace SharpRDP
             keycode["M"] = new Code(new[] { false, false, true, true }, new[] { 0x2a, 0x32 });
             keycode["N"] = new Code(new[] { false, false, true, true }, new[] { 0x2a, 0x31 });
             keycode["O"] = new Code(new[] { false, false, true, true }, new[] { 0x2a, 0x18 });
-            keycode["p"] = new Code(new[] { false, false, true, true }, new[] { 0x2a, 0x19 });
+            keycode["P"] = new Code(new[] { false, false, true, true }, new[] { 0x2a, 0x19 });
             keycode["Q"] = new Code(new[] { false, false, true, true }, new[] { 0x2a, 0x10 });
             keycode["R"] = new Code(new[] { false, false, true, true }, new[] { 0x2a, 0x13 });
             keycode["S"] = new Code(new[] { false, false, true, true }, new[] { 0x2a, 0x1f });
