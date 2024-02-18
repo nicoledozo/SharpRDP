@@ -1,6 +1,4 @@
 ﻿using System;
-using System.IO;
-using System.Diagnostics;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Threading;
@@ -94,10 +92,10 @@ namespace SharpRDP
             SSL_ERR_SMARTCARD_WRONG_PIN = 0x1C07
         }
 
-        public void CreateRdpConnection(string server, string user, string domain, int port, string password, string command, string execw, string runelevated, bool condrive, bool tover, bool nla)
+        public void CreateRdpConnection(string server, string user, string domain, int port, string password,
+            string command, string execw, string runelevated, bool condrive, bool tover, bool nla, Dictionary<String, Code> keycode)
         {
-            keycode = new Dictionary<String, Code>();
-            KeyCodes();
+            PopulateKeyCodes();
             runtype = runelevated;
             isdrive = condrive;
             cmd = command;
@@ -434,7 +432,7 @@ namespace SharpRDP
             Thread.Sleep(10);
         }
 
-        private void KeyCodes()
+        private void PopulateKeyCodes()
         {
             keycode["Esc"] = new Code(new[] { false, true }, new[] { 0x01 });
             keycode["Enter+down"] = new Code(new[] { false }, new[] { 0x1c });
