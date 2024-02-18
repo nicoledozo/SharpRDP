@@ -58,6 +58,7 @@ namespace SharpRDP
             string password = string.Empty;
             string command = string.Empty;
             string execElevated = string.Empty;
+            int port = 3389;
             string execw = "";
             bool connectdrive = false;
             bool takeover = false;
@@ -143,10 +144,24 @@ namespace SharpRDP
                         nla = true;
                     }
                 }
+                if (arguments.ContainsKey("port"))
+                {
+                    if (arguments["port"].ToLower() == "true")
+                    {
+                        if (int.TryParse(arguments["port"], out int portValue))
+                        {
+                            port = portValue;
+                        }
+                        else
+                        {
+                            Console.WriteLine("Port value is not valid.");
+                        }
+                    }
+                }
                 string[] computerNames = arguments["computername"].Split(',');
                 foreach (string server in computerNames)
                 {
-                    rdpconn.CreateRdpConnection(server, username, domain, password, command, execw, execElevated, connectdrive, takeover, nla);
+                    rdpconn.CreateRdpConnection(server, username, domain, port, password, command, execw, execElevated, connectdrive, takeover, nla);
                 }
             }
             else

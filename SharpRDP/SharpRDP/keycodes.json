@@ -1,0 +1,21 @@
+{
+  "keycodes": [
+    {
+      "layout": "US",
+      "keys": []
+    },
+    {
+      "layout": "CH",
+      "keys": []
+    },
+    {
+      "layout": "DE",
+      "keys": []
+    },
+    {
+      "layout": "FR",
+      "keys": []
+    }
+  ]
+  
+}
